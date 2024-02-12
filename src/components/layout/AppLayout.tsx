@@ -14,9 +14,7 @@ const AppLayout = () => {
 
   return (
     <div className="app-wrapper">
-      <div className="app-container">
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 };

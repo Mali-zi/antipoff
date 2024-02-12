@@ -4,8 +4,11 @@
   justify-content: center;
   align-items: center;
   min-height: fit-content;
-  width: 450px;
-  text-align: center;
+  width: 500px;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0px 4px 20px 0px #00000014;
 
   @media screen and (max-width: 375px) {
     width: 100%;
