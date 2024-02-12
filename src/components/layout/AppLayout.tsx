@@ -4,13 +4,17 @@ import { useAppSelector } from '../../redux/app/hooks';
 
 const AppLayout = () => {
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector((state) => state.users);
+  const isLoggedIn = useAppSelector((state) => state.users.isLoggedIn);
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate('/');
     }
-  }, []);
+
+    if (isLoggedIn) {
+      navigate('/workers');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className="app-wrapper">

@@ -1,6 +1,6 @@
 import Header from '../components/layout/Header';
 
-const Teams = () => {
+const Workers = () => {
   return (
     <>
       <Header />
@@ -9,4 +9,4 @@ const Teams = () => {
   );
 };
 
-export default Teams;
+export default Workers;

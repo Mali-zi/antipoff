@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Spinner from './Spinner';
-import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
+import { useAppDispatch } from '../redux/app/hooks';
+import { setLogIn } from '../redux/store/userSlice';
 
 export interface IFormInput {
   name: string;
@@ -15,14 +15,6 @@ export interface IFormInput {
 
 function SignUpForm() {
   const dispatch = useAppDispatch();
-  const { isLoggedIn } = useAppSelector((state) => state.users);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/main');
-    }
-  }, [isLoggedIn, navigate]);
 
   const schema = yup
     .object({
@@ -79,8 +71,8 @@ function SignUpForm() {
   ): Promise<void> => {
     e?.preventDefault();
     setIsLoading(true);
-
-    console.log('data', data);
+    console.log('data: ', data);
+    dispatch(setLogIn());
     reset();
   };
 
