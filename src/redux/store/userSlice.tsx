@@ -6,7 +6,12 @@ export const userSlice = createSlice({
     users: [],
     isLoggedIn: false,
   },
-  reducers: {},
+  reducers: {
+    setLogout: (state) => {
+      state.isLoggedIn = false;
+    },
+  },
 });
 
+export const { setLogout } = userSlice.actions;
 export default userSlice.reducer;

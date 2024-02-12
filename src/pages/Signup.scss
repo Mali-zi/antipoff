@@ -1,0 +1,12 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  text-align: center;
+
+  @media screen and (max-width: 375px) {
+    width: 100%;
+  }
+}
