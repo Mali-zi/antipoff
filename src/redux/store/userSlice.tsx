@@ -35,25 +35,47 @@ export const fetchWorker = createAsyncThunk(
   }
 );
 
+export const fetchSignUp = createAsyncThunk(
+  'user/fetchLogIn',
+  async (pasData: { email: string; password: string }, thunkApi) => {
+    const { rejectWithValue, fulfillWithValue } = thunkApi;
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pasData),
+    };
+    try {
+      const response = await fetch(url + '/api/register', requestOptions);
+      if (!response.ok) {
+        return rejectWithValue(response.status);
+      }
+      const data = await response.json();
+      return fulfillWithValue(data);
+    } catch (error: unknown) {
+      throw rejectWithValue(error);
+    }
+  }
+);
+
+const initialState: IUsers = {
+  users: [],
+  total: null,
+  total_pages: null,
+  singleUser: null,
+  status: 'idle',
+  errors: null,
+  isLoggedIn: false,
+  token: null,
+  registeredUser: null,
+  curentPage: 1,
+};
+
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    users: [],
-    total: null,
-    total_pages: null,
-    singleUser: null,
-    status: 'idle',
-    errors: null,
-    isLoggedIn: false,
-    curentPage: 1,
-  } as IUsers,
+  initialState,
   reducers: {
     setLogout: (state) => {
-      state.isLoggedIn = false;
-    },
-
-    setLogIn: (state) => {
-      state.isLoggedIn = true;
+      Object.assign(state, initialState);
     },
 
     delSingleUser: (state) => {
@@ -67,6 +89,28 @@ export const userSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(fetchSignUp.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
+        if (action.payload) {
+          state.registeredUser = action.payload.id;
+          state.token = action.payload.token;
+          state.isLoggedIn = true;
+        } else {
+          state.errors = 'Ошибка регистрации.';
+        }
+      })
+      .addCase(fetchSignUp.pending, (state) => {
+        state.status = 'pending';
+      })
+      .addCase(fetchSignUp.rejected, (state, action) => {
+        state.status = 'rejected';
+        if (action.payload) {
+          state.errors = action.payload;
+        } else {
+          state.errors = 'Ошибка регистрации.';
+        }
+      })
+
       .addCase(fetchWorkers.fulfilled, (state, action) => {
         state.status = 'fulfilled';
         if (action.payload) {
@@ -111,6 +155,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLogout, setLogIn, delSingleUser, setCurentPage } =
-  userSlice.actions;
+export const { setLogout, delSingleUser, setCurentPage } = userSlice.actions;
 export default userSlice.reducer;

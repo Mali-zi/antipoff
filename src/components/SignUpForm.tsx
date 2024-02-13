@@ -1,52 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Spinner from './Spinner';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
-import { setLogIn } from '../redux/store/userSlice';
-import { IFormInput } from '../utils';
+import { fetchSignUp } from '../redux/store/userSlice';
+import { IFormInput, schema } from '../utils';
 import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector((state) => state.users.isLoggedIn);
+  const { isLoggedIn, status } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
-
-  const schema = yup
-    .object({
-      name: yup
-        .string()
-        .min(3, 'Имя пользователя должно содержать не менее 3 символов')
-        .required('Требуется имя пользователя'),
-      email: yup
-        .string()
-        .email('Ошибка')
-        .required('Требуется адрес электронной почты'),
-      password: yup
-        .string()
-        .matches(/^\S*$/, 'Пробелы не допускаются')
-        .min(8, 'Пароль должен содержать не менее 8 символов')
-        .matches(
-          /[@$!%*#?&+=()/.,'"-<+<>~`]/,
-          'Пароль должен содержать как минимум 1 специальный символ'
-        )
-        .matches(/[0-9]/, 'Пароль должен содержать не менее 1 цифры')
-        .matches(
-          /\p{Ll}/gu,
-          'Пароль должен содержать не менее 1 символа в нижнем регистре'
-        )
-        .matches(
-          /\p{Lu}/gu,
-          'Пароль должен содержать не менее 1 символа в верхнем регистре'
-        )
-        .required('Требуется пароль'),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref('password')], 'Пароли должны совпадать')
-        .required('Требуется подтвердить пароль'),
-    })
-    .required();
 
   const { register, handleSubmit, reset, formState } = useForm<IFormInput>({
     defaultValues: {
@@ -60,16 +24,13 @@ function SignUpForm() {
   });
 
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async (
     data: IFormInput,
     e?: React.BaseSyntheticEvent
   ): Promise<void> => {
     e?.preventDefault();
-    setIsLoading(true);
-    console.log('data: ', data);
-    dispatch(setLogIn());
+    dispatch(fetchSignUp({ email: data.email, password: data.password }));
     reset();
   };
 
@@ -100,7 +61,7 @@ function SignUpForm() {
             type="text"
             id="name"
             autoComplete="name"
-            disabled={isLoading}
+            disabled={status === 'pending'}
             placeholder="Артур"
             className={`inp focus:outline-none disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
             ${formState.errors.name && 'inp-invalid inp-invalid:focus'}`}
@@ -117,7 +78,7 @@ function SignUpForm() {
             type="email"
             id="email"
             autoComplete="email"
-            disabled={isLoading}
+            disabled={status === 'pending'}
             placeholder="example@mail.ru"
             className={`inp focus:outline-none disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
             ${formState.errors.email && 'inp-invalid inp-invalid:focus'}`}
@@ -134,7 +95,7 @@ function SignUpForm() {
             type="password"
             id="password"
             autoComplete="new-password"
-            disabled={isLoading}
+            disabled={status === 'pending'}
             placeholder="******"
             className={`inp focus:outline-none disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
             ${formState.errors.password && 'inp-invalid inp-invalid:focus'}`}
@@ -151,7 +112,7 @@ function SignUpForm() {
             type="password"
             id="confirmPassword"
             data-testid="confirmPassword"
-            disabled={isLoading}
+            disabled={status === 'pending'}
             placeholder="******"
             autoComplete="none"
             className={`inp focus:outline-none disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
@@ -163,7 +124,7 @@ function SignUpForm() {
               formState.errors.confirmPassword.message}
           </div>
         </label>
-        {isLoading ? (
+        {status === 'pending' ? (
           <Spinner text="Загрузка..." />
         ) : (
           <button type="submit" disabled={isDisabled} className="btn mt-2">

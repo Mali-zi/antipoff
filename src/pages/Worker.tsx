@@ -2,10 +2,16 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
 import LogOut from '../assets/icons/LogOut';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
-import { delSingleUser, fetchWorker, setLogout } from '../redux/store/userSlice';
+import {
+  delSingleUser,
+  fetchWorker,
+  setLogout,
+} from '../redux/store/userSlice';
 import { useEffect } from 'react';
 import PhoneSvg from '../assets/icons/phone.svg';
 import MailSvg from '../assets/icons/mail.svg';
+import BackSvg from '../assets/icons/back.svg';
+import Back from '../assets/icons/Back';
 
 export default function Worker() {
   const dispatch = useAppDispatch();
@@ -33,11 +39,11 @@ export default function Worker() {
   return (
     <div className="app">
       <header className="header-wrapper">
-        <nav className="flex flex-row justify-between">
-          <div className="flex flex-row justify-start gap-8 mt-2">
-            <button type="button" className="btn" onClick={handleGoBack}>
-              <LogOut />
-              <span className="menu-item">Назад</span>
+        <nav className="flex flex-row justify-between items-start">
+          <div className="flex flex-row justify-start gap-8 mt-2 items-start">
+            <button type="button" className="" onClick={handleGoBack}>
+              <Back />
+              <span className="btn menu-item">Назад</span>
             </button>
             <div className="flex flex-row justify-center gap-8 text-white">
               <img
@@ -53,9 +59,9 @@ export default function Worker() {
               </div>
             </div>
           </div>
-          <button type="button" className="btn" onClick={handleLogout}>
+          <button type="button" className="mt-2" onClick={handleLogout}>
             <LogOut />
-            <span className="menu-item">Выйти</span>
+            <span className="btn menu-item">Выйти</span>
           </button>
         </nav>
       </header>

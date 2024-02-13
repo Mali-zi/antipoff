@@ -32,7 +32,10 @@ export default function PageNumbersSection() {
             navigate(`/${item}`);
           }}
         />
-        <label className="btn" htmlFor={`btnradio-${item}`}>
+        <label
+          className={curentPage === item ? 'btn btn-active' : 'btn'}
+          htmlFor={`btnradio-${item}`}
+        >
           {item}
         </label>
       </li>

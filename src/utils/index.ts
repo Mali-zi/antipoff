@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 export const url = 'https://reqres.in';
 
 export interface IFormInput {
@@ -31,5 +33,29 @@ export interface IUsers {
   status: string;
   errors: unknown;
   isLoggedIn: boolean;
+  token: null | string;
+  registeredUser: null | number;
   curentPage: null | number;
 }
+
+export const schema = yup
+  .object({
+    name: yup
+      .string()
+      .min(3, 'Имя пользователя должно содержать не менее 3 символов')
+      .required('Требуется имя пользователя'),
+    email: yup
+      .string()
+      .email('Ошибка')
+      .required('Требуется адрес электронной почты'),
+    password: yup
+      .string()
+      .matches(/^\S*$/, 'Пробелы не допускаются')
+      .min(6, 'Пароль должен содержать не менее 6 символов')
+      .required('Требуется пароль'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password')], 'Пароли должны совпадать')
+      .required('Требуется подтвердить пароль'),
+  })
+  .required();
