@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router';
 import LogOut from '../assets/icons/LogOut';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
-import { fetchWorker, setLogout } from '../redux/store/userSlice';
+import { delSingleUser, fetchWorker, setLogout } from '../redux/store/userSlice';
 import { useEffect } from 'react';
 import PhoneSvg from '../assets/icons/phone.svg';
 import MailSvg from '../assets/icons/mail.svg';
 
 export default function Worker() {
   const dispatch = useAppDispatch();
-  const { singleUser, status, errors, isLoggedIn } = useAppSelector(
+  const { singleUser, status, errors, isLoggedIn, curentPage } = useAppSelector(
     (state) => state.users
   );
 
@@ -21,7 +21,8 @@ export default function Worker() {
   };
 
   const handleGoBack = () => {
-    navigate('/workers');
+    navigate(`/${curentPage}`);
+    dispatch(delSingleUser());
   };
 
   useEffect(() => {

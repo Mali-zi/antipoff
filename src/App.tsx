@@ -9,8 +9,8 @@ function App() {
     <Routes>
       <Route element={<AppLayout />}>
         <Route path="/" element={<Signup />} />
-        <Route path="/workers" element={<Workers />} />
-        <Route path="/workers/:id" element={<Worker />} />
+        <Route path="/:page" element={<Workers />} />
+        <Route path="/worker/:id" element={<Worker />} />
       </Route>
     </Routes>
   );

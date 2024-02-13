@@ -10,6 +10,7 @@ import {
   setAddFavorite,
 } from '../redux/store/favouriteUserSlice';
 import { Link } from 'react-router-dom';
+import PageNumbersSection from '../components/PageNumbersSection';
 
 interface IOver {
   over: boolean;
@@ -18,7 +19,7 @@ interface IOver {
 
 const Workers = () => {
   const dispatch = useAppDispatch();
-  const { users, status, errors, isLoggedIn } = useAppSelector(
+  const { users, status, errors, isLoggedIn, curentPage } = useAppSelector(
     (state) => state.users
   );
   const favouriteUsers = useAppSelector(
@@ -30,11 +31,9 @@ const Workers = () => {
   });
 
   useEffect(() => {
-    if (users.length === 0) {
-      dispatch(fetchWorkers('/api/users'));
-    }
+    dispatch(fetchWorkers(`/api/users?page=${curentPage}`));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [curentPage]);
 
   const handleClick = (user: IUser) => {
     const isfavourite = favouriteUsers.find(
@@ -54,7 +53,7 @@ const Workers = () => {
 
     return (
       <li key={user.id} className="card">
-        <Link to={`/workers/${user.id}`}>
+        <Link to={`/worker/${user.id}`}>
           <img
             src={user.avatar}
             className="w-[124px] object-cover rounded-full"
@@ -96,7 +95,10 @@ const Workers = () => {
   return (
     <div className="app">
       <Header />
-      <ul className="userList">{userList}</ul>
+      <main className="team">
+        <PageNumbersSection />
+        <ul className="userList">{userList}</ul>
+      </main>
     </div>
   );
 };

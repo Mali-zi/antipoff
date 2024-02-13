@@ -39,10 +39,13 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     users: [],
+    total: null,
+    total_pages: null,
     singleUser: null,
     status: 'idle',
     errors: null,
     isLoggedIn: false,
+    curentPage: 1,
   } as IUsers,
   reducers: {
     setLogout: (state) => {
@@ -52,6 +55,14 @@ export const userSlice = createSlice({
     setLogIn: (state) => {
       state.isLoggedIn = true;
     },
+
+    delSingleUser: (state) => {
+      state.singleUser = null;
+    },
+
+    setCurentPage: (state, action) => {
+      state.curentPage = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -59,7 +70,9 @@ export const userSlice = createSlice({
       .addCase(fetchWorkers.fulfilled, (state, action) => {
         state.status = 'fulfilled';
         if (action.payload) {
-          state.users = [...state.users, ...action.payload.data];
+          state.users = action.payload.data;
+          state.total = action.payload.total;
+          state.total_pages = action.payload.total_pages;
         } else {
           state.errors = 'Сотрудники не могут быть загружены.';
         }
@@ -98,5 +111,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setLogout, setLogIn } = userSlice.actions;
+export const { setLogout, setLogIn, delSingleUser, setCurentPage } =
+  userSlice.actions;
 export default userSlice.reducer;

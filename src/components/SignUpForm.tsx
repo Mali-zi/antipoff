@@ -83,7 +83,7 @@ function SignUpForm() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/workers');
+      navigate('/1');
     }
   }, [isLoggedIn, navigate]);
 

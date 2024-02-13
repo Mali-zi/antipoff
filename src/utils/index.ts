@@ -26,7 +26,10 @@ export interface ISingleUser {
 export interface IUsers {
   users: IUser[];
   singleUser: ISingleUser | null;
+  total: null | number;
+  total_pages: null | number;
   status: string;
   errors: unknown;
   isLoggedIn: boolean;
+  curentPage: null | number;
 }
