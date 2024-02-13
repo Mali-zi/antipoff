@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from '../store/userSlice';
+import favouriteUserReducer from '../store/favouriteUserSlice';
 
 const rootReducer = combineReducers({
   users: userReducer,
+  favouriteUsers: favouriteUserReducer,
 });
 
 export const store = configureStore({

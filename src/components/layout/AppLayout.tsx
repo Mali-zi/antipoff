@@ -17,7 +17,7 @@ const AppLayout = () => {
   }, [isLoggedIn, navigate]);
 
   return (
-    <div className="app-wrapper">
+    <div className="main">
       <Outlet />
     </div>
   );
