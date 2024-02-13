@@ -21,37 +21,41 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .card {
-  width: 25%;
-  padding: 1rem;
+  width: 305px;
+  height: 263px;
+  padding: 36px 0 20px 0;
+  border-radius: 10px;
+  box-shadow: 0px 1px 4px 0px #33333326;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
-.parent-col:hover {
-  scale: 1.05;
-}
-
-.parent-col:hover .favorite-btn {
-  visibility: visible;
-}
-
-.parent {
-  display: block;
-  aspect-ratio: 1 / 1;
-  width: 100%;
-  object-fit: cover;
-}
-
-.parent:hover {
-  box-shadow: 0px 6px 10px 0px #464646
+.heart-holder {
+  position: relative;
+  width: 30px;
+  height: 28px;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  background-color: $gray_light;
+  align-self: flex-end;
+  margin-right: 1rem;
 }
 
 .favorite-btn {
   position: absolute;
-  bottom: 0.5rem;
-  right: 1.5rem;
+  width: 14px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: none;
   background-color: transparent;
-  visibility: hidden;
 }

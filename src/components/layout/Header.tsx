@@ -5,7 +5,7 @@ import { setLogout } from '../../redux/store/userSlice';
 function Header() {
   const dispatch = useAppDispatch();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     dispatch(setLogout());
   };
 

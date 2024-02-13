@@ -9,6 +9,12 @@ import {
   setRemoveFavorite,
   setAddFavorite,
 } from '../redux/store/favouriteUserSlice';
+import { Link } from 'react-router-dom';
+
+interface IOver {
+  over: boolean;
+  id: null | number;
+}
 
 const Workers = () => {
   const dispatch = useAppDispatch();
@@ -18,10 +24,16 @@ const Workers = () => {
   const favouriteUsers = useAppSelector(
     (state) => state.favouriteUsers.favouriteUsers
   );
-  const [isMouseOver, setMouseOver] = useState(false);
+  const [isMouseOver, setMouseOver] = useState<IOver>({
+    over: false,
+    id: null,
+  });
 
   useEffect(() => {
-    dispatch(fetchWorkers('/api/users'));
+    if (users.length === 0) {
+      dispatch(fetchWorkers('/api/users'));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = (user: IUser) => {
@@ -42,30 +54,50 @@ const Workers = () => {
 
     return (
       <li key={user.id} className="card">
-        <img src={user.avatar} className="parent" alt="avatar" />
-        <button
-          type="button"
-          className="favorite-btn"
-          onClick={() => handleClick(user)}
-          onMouseOver={() => setMouseOver(true)}
-          onMouseOut={() => setMouseOver(false)}
-        >
-          {isfavourite || isMouseOver ? (
-            <img src={FavoriteSvg} alt="Favorite SVG" />
-          ) : (
-            <img src={FavoriteBorderSvg} alt="Favorite Border SVG" />
-          )}
-        </button>
+        <Link to={`/workers/${user.id}`}>
+          <img
+            src={user.avatar}
+            className="w-[124px] object-cover rounded-full"
+            alt="avatar"
+          />
+          <h2 className="text-center mt-4">
+            {user.first_name + ' ' + user.last_name}
+          </h2>
+        </Link>
+        <div className="heart-holder">
+          <button
+            type="button"
+            className="favorite-btn"
+            onClick={() => handleClick(user)}
+            onMouseOver={() =>
+              setMouseOver({
+                over: true,
+                id: user.id,
+              })
+            }
+            onMouseOut={() =>
+              setMouseOver({
+                over: false,
+                id: null,
+              })
+            }
+          >
+            {isfavourite || (isMouseOver.over && isMouseOver.id === user.id) ? (
+              <img src={FavoriteSvg} alt="Favorite SVG" />
+            ) : (
+              <img src={FavoriteBorderSvg} alt="Favorite Border SVG" />
+            )}
+          </button>
+        </div>
       </li>
     );
   });
 
   return (
-    <main className="app">
+    <div className="app">
       <Header />
-
       <ul className="userList">{userList}</ul>
-    </main>
+    </div>
   );
 };
 

@@ -40,12 +40,10 @@ li {
 }
 
 a {
-  font-weight: 500;
-  background-color: $violet;
   text-decoration: inherit;
 }
 a:hover {
-  background-color: $hoverLink;
+  scale: 1.04;
 }
 
 input:-webkit-autofill,
@@ -57,7 +55,7 @@ select:-webkit-autofill {
 .app {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 100%;

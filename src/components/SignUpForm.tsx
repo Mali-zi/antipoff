@@ -3,17 +3,14 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Spinner from './Spinner';
-import { useAppDispatch } from '../redux/app/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { setLogIn } from '../redux/store/userSlice';
-
-export interface IFormInput {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { IFormInput } from '../utils';
+import { useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
+  const navigate = useNavigate();
+  const isLoggedIn = useAppSelector((state) => state.users.isLoggedIn);
   const dispatch = useAppDispatch();
 
   const schema = yup
@@ -83,6 +80,12 @@ function SignUpForm() {
       setIsDisabled(true);
     }
   }, [formState]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/workers');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className="form-wrapper">

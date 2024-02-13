@@ -10,10 +10,6 @@ const AppLayout = () => {
     if (!isLoggedIn) {
       navigate('/');
     }
-
-    if (isLoggedIn) {
-      navigate('/workers');
-    }
   }, [isLoggedIn, navigate]);
 
   return (

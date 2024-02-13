@@ -20,10 +20,10 @@ export const fetchWorkers = createAsyncThunk(
 
 export const fetchWorker = createAsyncThunk(
   'user/fetchWorker',
-  async (id: string, thunkApi) => {
+  async (endPoint: string, thunkApi) => {
     const { rejectWithValue, fulfillWithValue } = thunkApi;
     try {
-      const response = await fetch(id);
+      const response = await fetch(url + endPoint);
       if (!response.ok) {
         return rejectWithValue(response.status);
       }
@@ -79,7 +79,7 @@ export const userSlice = createSlice({
       .addCase(fetchWorker.fulfilled, (state, action) => {
         state.status = 'fulfilled';
         if (action.payload) {
-          state.singleUser = action.payload;
+          state.singleUser = action.payload.data;
         } else {
           state.errors = 'Сотрудник не могут быть загружены.';
         }
