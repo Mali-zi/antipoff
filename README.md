@@ -3,7 +3,7 @@
 - Стек: React.JS + TypeScript + Vite + Redux Toolkit + TailwindCSS + Sass + React Hook Form + Yup
 - Code Quality Tools: ESLint + Prettier
 - [Deploy](https://mali-zi-antipoff.netlify.app)
-- ![Screenshot](https://github.com/Mali-zi/antipoff/blob/master/public/screenshot.JPG)
+- ![Screenshot](https://github.com/Mali-zi/antipoff/blob/main/public/screenshot.JPG)
 
 Страница всех пользователей
 Для запросов используется API https://reqres.in/
