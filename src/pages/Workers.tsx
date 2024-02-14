@@ -11,6 +11,7 @@ import {
 } from '../redux/store/favouriteUserSlice';
 import { Link } from 'react-router-dom';
 import PageNumbersSection from '../components/PageNumbersSection';
+import Loader from '../components/Loader';
 
 interface IOver {
   over: boolean;
@@ -19,9 +20,7 @@ interface IOver {
 
 const Workers = () => {
   const dispatch = useAppDispatch();
-  const { users, status, errors, isLoggedIn, curentPage } = useAppSelector(
-    (state) => state.users
-  );
+  const { users, status, curentPage } = useAppSelector((state) => state.users);
   const favouriteUsers = useAppSelector(
     (state) => state.favouriteUsers.favouriteUsers
   );
@@ -95,10 +94,14 @@ const Workers = () => {
   return (
     <div className="app">
       <Header />
-      <main className="team">
-        <PageNumbersSection />
-        <ul className="userList">{userList}</ul>
-      </main>
+      {status === 'pending' ? (
+        <Loader />
+      ) : (
+        <main className="team">
+          <PageNumbersSection />
+          <ul className="userList">{userList}</ul>
+        </main>
+      )}
     </div>
   );
 };
