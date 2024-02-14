@@ -25,6 +25,40 @@
   }
 }
 
+.header-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 2rem 5rem;
+  background-color: $violet;
+  transition: all 0.8s ease-in;
+  color: $gray_light;
+  text-align: center;
+
+  @media screen and (max-width: 1280px) {
+    padding: 2rem 3rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 1.5rem 2rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 1rem 1.5rem;
+  }
+}
+
+.menu-item {
+  @media screen and (max-width: 450px) {
+    display: none;
+  }
+}
+
+.menu-icon {
+  @media screen and (min-width: 449px) {
+    display: none;
+  }
+}
+
 .team {
   padding: 3rem 5rem;
 
