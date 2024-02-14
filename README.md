@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# Antipoff app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Стек: React.JS + TypeScript + Vite + Redux Toolkit + TailwindCSS + Sass + React Hook Form + Yup
+- Code Quality Tools: ESLint + Prettier
+- [Deploy](https://mali-zi-antipoff.netlify.app)
+- ![Screenshot](https://github.com/Mali-zi/antipoff/blob/master/public/screenshot.JPG)
 
-Currently, two official plugins are available:
+Страница всех пользователей
+Для запросов используется API https://reqres.in/
+Отображается список карточек пользователей с пагинацией. Имеется возможность ставить лайки пользователям, которые сохраняются после перезагрузки страницы.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Регистрация
+Чтобы увидеть этот список, необходимо зарегистрироваться через простую форму.
+Регистрация и логин осуществляются через email/password. Данные для регистрации:
+{
+    "email": "eve.holt@reqres.in",
+    "password": "pistol"
+}. 
+Проверяются на валидность все входные данные и выводится ошибка при невалидных данных.
+При успешной регистрации токен сохраняется в памяти браузера и удаляется после нажатия на кнопку “выход”.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Страница пользователя 
+На странице всех пользователей по клику на любую из карточек открывается страница с детальной информацией о пользователе. 
