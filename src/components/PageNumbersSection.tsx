@@ -33,7 +33,7 @@ export default function PageNumbersSection() {
           }}
         />
         <label
-          className={curentPage === item ? 'btn btn-active' : 'btn'}
+          className={curentPage === item ? 'btn-active' : 'btn'}
           htmlFor={`btnradio-${item}`}
         >
           {item}
