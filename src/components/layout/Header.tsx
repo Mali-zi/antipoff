@@ -11,20 +11,20 @@ function Header() {
 
   return (
     <header className="header-wrapper">
-      <nav className="flex flex-row justify-end">
-        <button type="button" className="" onClick={handleLogout}>
+      <nav className="flex flex-col justify-start items-center gap-4">
+        <button type="button" className="self-end" onClick={handleLogout}>
           <LogOut />
           <span className="btn menu-item">Выйти</span>
         </button>
+        <div className="xl:mx-52 lg:mx-32 md:mx-18 sm:mx-8 text-white">
+          <h1 className="mb-4">Наша команда</h1>
+          <h2 className="mb-8">
+            Это опытные специалисты, хорошо разбирающиеся во всех задачах,
+            которые ложатся на их плечи, и умеющие находить выход из любых, даже
+            самых сложных ситуаций.
+          </h2>
+        </div>
       </nav>
-      <div className="mx-52 mb-8 text-white">
-        <h1>Наша команда</h1>
-        <h2>
-          Это опытные специалисты, хорошо разбирающиеся во всех задачах, которые
-          ложатся на их плечи, и умеющие находить выход из любых, даже самых
-          сложных ситуаций.
-        </h2>
-      </div>
     </header>
   );
 }

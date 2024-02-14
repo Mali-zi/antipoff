@@ -3,6 +3,7 @@ import Signup from './pages/Signup';
 import AppLayout from './components/layout/AppLayout';
 import Workers from './pages/Workers';
 import Worker from './pages/Worker';
+import Page404 from './pages/Page404';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/:page" element={<Workers />} />
         <Route path="/worker/:id" element={<Worker />} />
       </Route>
+      <Route path="*" element={<Page404 />} />
     </Routes>
   );
 }
